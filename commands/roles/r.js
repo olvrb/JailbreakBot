@@ -24,7 +24,7 @@ module.exports = class ReplyCommand extends Command {
     }
     async run(message, { role }) {
         const roles = ["iOS", "macOS", "tvOS", "wathcOS", "Other Updates", "Electra", "Meridian", "g0blin", "LiberiOS", "h3lix", "overcl0ck"];
-        if (!(roles.indexOf(role) > -1)) return message.reply("That role is invalid.");
+        if (!(roles.indexOf(role) > -1)) return message.reply("!R That role is invalid.").then(e => e.delete(5000));
         const newRole = message.guild.roles.find("name", role);
         //const roleCollection = message.member.roles.array();
         setTimeout(() => {
