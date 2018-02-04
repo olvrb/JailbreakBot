@@ -9,4 +9,4 @@ Hi! If you're looking to contribute, read this!
 - 4 space indentation, i don't care if you use space or tab
 - Comment your code
 
-# If you want an example on how to use commando, check ./commands/roles/helloworld.js
+If you want an example on how to use commando, check ./commands/roles/helloworld.js, docs are also avaialble [here.](https://discord.js.org/#/docs/commando/master/general/welcome)
