@@ -36,6 +36,6 @@ module.exports = class ReplyCommand extends Command {
         } catch (error) {
             throw error;
         }
-        message.reply(`I gave you the \`${role.name}\` role.`);
+        message.reply(`I gave you the \`${role}\` role.`);
     }
 };
