@@ -1,4 +1,5 @@
 const { Command } = require("discord.js-commando");
+const { MessageEmbed } = require("discord.js");
 module.exports = class ReplyCommand extends Command {
     constructor(client) {
         super(client, {
@@ -20,13 +21,11 @@ module.exports = class ReplyCommand extends Command {
     async run(message, { text }) {
         var issuechannel = this.client.channels.get("409796293116821515");
         var report = message.author.username + " reported an issue";
-        var reportembed = {
-            embed: {
-                color: 3447003,
-                title: report,
-                description: text
-            }
-        }
+        var reportembed = new MessageEmbed()
+            .setTimestamp()
+            .setAuthor(message.author.username, message.author.displayAvatarURL())
+            .setTitle(message.author.username + "#" + message.author.discriminator + " has reported an issue")
+            .setDescription(text);
         issuechannel.send(reportembed);
     }
 };
