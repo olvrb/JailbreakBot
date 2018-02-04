@@ -27,9 +27,12 @@ module.exports = class ReplyCommand extends Command {
         if (!(roles.indexOf(role) > -1)) return message.reply("That role is invalid.");
         const newRole = message.guild.roles.find("name", role);
         //const roleCollection = message.member.roles.array();
-        if (message.member.roles.exists("name", role)) {
-            message.member.roles.remove(newRole);
-            return message.reply(`!R Removed \`${newRole.name}\`.`).then(e => e.delete(5000));
-        }
+        setTimeout(() => {
+            if (message.member.roles.exists("name", role)) {
+                message.member.roles.remove(newRole);
+                return message.reply(`!R Removed \`${newRole.name}\`.`).then(e => e.delete(5000));
+            }
+        }, 1500);
+        
     }
 };
