@@ -7,11 +7,13 @@ const client = new CommandoClient({
 });
 client.on("ready", () => {
     console.log(`Started with ${client.users.size} users, in ${client.guilds.size} guilds and with ${client.channels.size} channels.`);
+    client.user.setPresence({ game: { name: 'with the devs', type: 0 } });
 });
 client.registry
     .registerDefaultTypes()
     .registerGroups([
-        ['roles', 'Role Assignment']
+        ['roles', 'Role Assignment'],
+        ['meta', 'Command about the bot itself']
     ])
     .registerDefaultGroups()
     .registerDefaultCommands( {
@@ -20,4 +22,4 @@ client.registry
     })
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
-client.login("NDA5Nzk2MzA1ODY3NTA1NjY3.DVj0Dw.FeNHz6bnIIbkpIG-ztw7JtiPJmg");
+client.login("NDA5Nzk2MzA1ODY3NTA1NjY3.DVkAhA.OoHv377-6HsuqP59XGjGXkjzFPw");
