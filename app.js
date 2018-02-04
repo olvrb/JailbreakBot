@@ -11,7 +11,8 @@ client.on("ready", () => {
 client.registry
     .registerDefaultTypes()
     .registerGroups([
-        ['roles', 'Role Assignment']
+        ['roles', 'Role Assignment'],
+        ['meta', 'Command about the bot itself']
     ])
     .registerDefaultGroups()
     .registerDefaultCommands( {
