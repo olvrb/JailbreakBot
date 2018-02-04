@@ -19,23 +19,17 @@ module.exports = class ReplyCommand extends Command {
             ]
         });
     }
+    hasPermission(message) {
+        return message.guild;
+    }
     async run(message, { role }) {
         const roles = ["iOS", "macOS", "tvOS", "wathcOS", "Other Updates", "Electra", "Meridian", "g0blin", "LiberiOS", "h3lix", "overcl0ck"];
         if (!(roles.indexOf(role) > -1)) return message.reply("That role is invalid.");
         const newRole = message.guild.roles.find("name", role);
-        const roleCollection = message.member.roles.array();
+        //const roleCollection = message.member.roles.array();
         if (message.member.roles.exists("name", role)) {
             message.member.roles.remove(newRole);
             return message.reply(`Removed \`${newRole.name}\`.`);
         }
-        try {
-            roleCollection.push(newRole);
-            message.member.edit({
-                roles: roleCollection
-            });
-        } catch (error) {
-            throw error;
-        }
-        message.reply(`I gave you the \`${role}\` role.`);
     }
 };

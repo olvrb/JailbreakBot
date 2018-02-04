@@ -1,7 +1,7 @@
 const { CommandoClient } = require('discord.js-commando');
 const path = require('path');
 const client = new CommandoClient({
-    commandPrefix: '?',
+    commandPrefix: '!',
     owner: '267407075905110016',
     disableEveryone: true
 });
@@ -20,4 +20,4 @@ client.registry
     })
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
-client.login("NDA5Nzk2MzA1ODY3NTA1NjY3.DVkAhA.OoHv377-6HsuqP59XGjGXkjzFPw");
+client.login("NDA5Nzk2MzA1ODY3NTA1NjY3.DVkcdw.9QlU0zURtOm0ixzEF7eyuyqLBsI");
