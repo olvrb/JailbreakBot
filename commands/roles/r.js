@@ -29,7 +29,7 @@ module.exports = class ReplyCommand extends Command {
         //const roleCollection = message.member.roles.array();
         if (message.member.roles.exists("name", role)) {
             message.member.roles.remove(newRole);
-            return message.reply(`Removed \`${newRole.name}\`.`);
+            return message.reply(`Removed \`${newRole.name}\`.`).then(e => e.delete(5000));
         }
     }
 };
