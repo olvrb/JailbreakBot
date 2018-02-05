@@ -18,6 +18,7 @@
   "homepage": "https://github.com/olvrb/JailbreakBot#readme",
   "dependencies": {
     "discord.js": "github:hydrabolt/discord.js",
-    "discord.js-commando": "github:gawdl3y/discord.js-commando"
+    "discord.js-commando": "github:gawdl3y/discord.js-commando",
+    "quick.db": "^3.0.3"
   }
 }
