@@ -30,7 +30,7 @@ module.exports = class ReplyCommand extends Command {
         setTimeout(() => {
             if (message.member.roles.exists("name", role)) {
                 message.member.roles.remove(newRole);
-                return message.reply(`!R Removed \`${newRole.name}\`.`).then(e => e.delete(5000));
+                return message.author.send(`!R Removed \`${newRole.name}\`.`).then(e => e.delete(5000));
             }
         }, 1500);
         
