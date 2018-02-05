@@ -19,6 +19,7 @@
   "dependencies": {
     "discord.js": "github:hydrabolt/discord.js",
     "discord.js-commando": "github:gawdl3y/discord.js-commando",
-    "quick.db": "^3.0.3"
+    "quick.db": "^3.0.3",
+    "sqlite": "^2.9.1"
   }
 }

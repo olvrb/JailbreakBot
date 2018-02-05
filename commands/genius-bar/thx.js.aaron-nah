@@ -1,0 +1,45 @@
+const { Command } = require("discord.js-commando");
+const { MessageEmbed } = require("discord.js");
+const sql = require("sqlite");
+sql.open("./score.sqlite");
+module.exports = class ReplyCommand extends Command {
+    constructor(client) {
+        super(client, {
+            name: 'thx',
+            group: 'genius-bar',
+            memberName: 'thx',
+            description: 'files an issue',
+            examples: ['issue "!give myrole" crashes bot'],
+            alias: ['thanks', 'thank'],
+            args: [
+                {
+                    key: 'person',
+                    prompt: "Who do you wanna thank",
+                    type: 'user'
+                }
+            ]
+        });
+    }
+    
+    async run(message, { person }) {
+        if (message.channel.type === "dm") return;
+        message.channel.send(message.author + " thanked " + person);
+        sql.get(`SELECT * FROM scores WHERE userId ="${person.id}"`).then(row => {
+            if (!row) {
+                sql.run("INSERT INTO scores (userId, points) VALUES (?, ?)", [person.id, 1]);
+            } else {
+                sql.run(`UPDATE scores SET points = ${row.points + 1} WHERE userId = ${person.id}`);
+            }
+        }).catch(() => {
+            sql.run("CREATE TABLE IF NOT EXISTS scores (userId TEXT, points INTEGER)").then(() => {
+                sql.run("INSERT INTO scores (userId, points) VALUES (?, ?)", [person.id, 1]);
+            });
+            });
+        sql.get(`SELECT * FROM scores WHERE userId ="${person.id}"`).then(row => {
+            if (!row) return message.reply("Your current score is 0");
+            message.reply(`Your current score is ${row.points}`);
+        }).catch(() => {
+            message.reply("scores Table doesn't exist");
+        });
+    }
+};
