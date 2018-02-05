@@ -54,7 +54,7 @@ module.exports = class ReplyCommand extends Command {
             .setDescription(`${member.user.username} is a pirate.`)
             .addField("Reason", reason)
             .setColor("RANDOM")
-            .setFooter(`Done by ${message.author.username}#${message.author.tag}`, message.author.displayAvatarURL())
+            .setFooter(`Done by ${message.author.tag}`, message.author.displayAvatarURL())
         const m = await pirateReports.send(embed);
         db.updateText(message.guild.id + member.user.id + "_pirate", m.id); //add message id to database to delete the message later
     }

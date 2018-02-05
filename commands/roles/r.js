@@ -32,7 +32,7 @@ module.exports = class ReplyCommand extends Command {
                 message.member.roles.remove(newRole);
                 return message.author.send(`!R Removed \`${newRole.name}\`.`).then(e => e.delete(5000));
             }
-        }, 1500);
+        }, 15e2);
         
     }
 };
