@@ -1,7 +1,7 @@
 const { CommandoClient } = require('discord.js-commando');
 const path = require('path');
 const client = new CommandoClient({
-    commandPrefix: '!',
+    commandPrefix: '?',
     owner: '267407075905110016',
     disableEveryone: true
 });
@@ -16,6 +16,7 @@ client.registry
     .registerDefaultGroups()
     .registerDefaultCommands( {
         ping: false,
+        help: false,
         eval: false
     })
     .registerCommandsIn(path.join(__dirname, 'commands'));
