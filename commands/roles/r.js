@@ -9,7 +9,7 @@ module.exports = class ReplyCommand extends Command {
             group: 'roles',
             memberName: 'r',
             description: 'Get or remove a role from the available list.',
-            examples: ['r liberios'],
+            examples: ['r LiberiOS'],
             args: [
                 {
                     key: "role",

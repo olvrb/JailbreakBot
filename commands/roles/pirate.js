@@ -25,23 +25,27 @@ module.exports = class ReplyCommand extends Command {
         });
     }
     hasPermission(message) {
-        return message.member.roles.exists("name", "Geniuses™");
+        return (message.member.roles.exists("name", "Geniuses™") || message.member.roles.exists("name", "Moderators")) && message.guild;
     }
     async run(message, { member, reason }) {
+        message.delete();
+        if (member.roles.exists("name", "Geniuses™")) return message.reply("You can't give a genius the pirate role!");
         const preCheck = await db.fetchObject(member.user.id + "_pirate");
         const pirateReports = message.guild.channels.find("name", "bot-testing");
         const pirateRole = message.guild.roles.find("name", "Pirate");
         if (!reason || preCheck.text === "not_pirate"){
-            message.reply(`removed role from ${member}`);
+            member.roles.remove(member.roles.find("name", "Pirate"));
             const data = await db.fetchObject(member.user.id + "_pirate");
             const pirateMessage = await pirateReports.messages.fetch(data.text);
             pirateMessage.delete();
             db.updateText(member.user.id + "_pirate", "not_pirate");
-            return member.roles.find("name", "Pirate").remove();
-        }
+            return message.reply(`removed role from ${member}`);
 
+        }
+        const roleArray = member.roles.array();
+        roleArray.push(pirateRole);
         member.edit({
-            roles: [pirateRole]
+            roles: roleArray
         });
         const embed = new MessageEmbed()
             .setTimestamp()
@@ -49,6 +53,7 @@ module.exports = class ReplyCommand extends Command {
             .setTitle("Pirate")
             .setDescription(`${member.user.username} is a pirate.`)
             .addField("Reason", reason)
+            .setColor("RANDOM")
         const m = await pirateReports.send(embed);
         db.updateText(member.user.id + "_pirate", m.id);
 
