@@ -1,5 +1,12 @@
 const { CommandoClient } = require('discord.js-commando');
 const path = require('path');
+this.embed = function () {
+    var reportembed = new MessageEmbed()
+        .setTimestamp()
+        .setAuthor(author.username, author.displayAvatarURL())
+        .setTitle(title)
+        .setDescription(desc);
+}
 const client = new CommandoClient({
     commandPrefix: '?',
     owner: '267407075905110016',
@@ -13,7 +20,8 @@ client.registry
     .registerDefaultTypes()
     .registerGroups([
         ['roles', 'Role Assignment'],
-        ['meta', 'Command about the bot itself']
+        ['meta', 'Command about the bot itself'],
+        ['genius-bar', 'Commands for genius-bar']
     ])
     .registerDefaultGroups()
     .registerDefaultCommands( {
@@ -22,4 +30,4 @@ client.registry
     })
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
-client.login("NDA5Nzk2MzA1ODY3NTA1NjY3.DVkAhA.OoHv377-6HsuqP59XGjGXkjzFPw");
+client.login("NDA5Nzk2MzA1ODY3NTA1NjY3.DVkcdw.9QlU0zURtOm0ixzEF7eyuyqLBsI");
