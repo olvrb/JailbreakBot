@@ -31,31 +31,31 @@ module.exports = class ReplyCommand extends Command {
         message.delete();
         //if (member.roles.exists("name", "Geniuses™")) return message.reply("You can't give a genius the pirate role!");
         const preCheck = await db.fetchObject(message.guild.id + member.user.id + "_pirate");
-        const pirateReports = message.guild.channels.find("name", "pirate-reports");
-        const pirateRole = message.guild.roles.find("name", "Pirate");
-        if (!reason || preCheck.text === "not_pirate"){
-            member.roles.remove(member.roles.find("name", "Pirate"));
-            const data = await db.fetchObject(message.guild.id + member.user.id + "_pirate");
-            console.log(data);
-            const pirateMessage = await pirateReports.messages.fetch(data.text);
-            pirateMessage.delete();
-            db.updateText(message.guild.id + member.user.id + "_pirate");
-            return message.reply(`removed role from ${member}.`);
+        const pirateReports = message.guild.channels.find("name", "pirate-reports"); //get the channel so send piratemessage to
+        const pirateRole = message.guild.roles.find("name", "Pirate"); //pirate role, obv
+        if (!reason){ //remove pirate role and message if there's no reason
+            member.roles.remove(member.roles.find("name", "Pirate"));                               //start by removing the role
+            const data = await db.fetchObject(message.guild.id + member.user.id + "_pirate");       //get data from database 
+            if (data.text === "not_pirate") return  message.reply(`${member} is not a pirate!`);    //if the person isn't a pirate throw a little error message
+            const pirateMessage = await pirateReports.messages.fetch(data.text);                    //fetch the message which was stored in the database
+            pirateMessage.delete();                                                                 //delete the message stored in the database
+            db.updateText(message.guild.id + member.user.id + "_pirate", "not_pirate");             //make sure the db knows the member isn't a pirate anymore
+            return message.reply(`removed role from ${member}.`);                                   //let the genius/mod/admin know that the role is gone
         }
-        const roleArray = member.roles.array();
-        roleArray.push(pirateRole);
+        const roleArray = member.roles.array(); // discord.js has a weird way of handling role adding on master
+        roleArray.push(pirateRole);             // so we just do this
         member.edit({
             roles: roleArray
         });
         const embed = new MessageEmbed()
             .setTimestamp()
-            .setAuthor(this.client.user.username, this.client.user.displayAvatarURL())
+            .setAuthor(this.client.user.username, this.client.user.displayAvatarURL())                                  //just make the embed no need to comment smh
             .setTitle("Pirate")
             .setDescription(`${member.user.username} is a pirate.`)
             .addField("Reason", reason)
             .setColor("RANDOM")
             .setFooter(`Done by ${message.author.username}#${message.author.tag}`, message.author.displayAvatarURL())
         const m = await pirateReports.send(embed);
-        db.updateText(message.guild.id + member.user.id + "_pirate", m.id);
+        db.updateText(message.guild.id + member.user.id + "_pirate", m.id); //add message id to database to delete the message later
     }
 };
