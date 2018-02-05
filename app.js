@@ -22,4 +22,4 @@ client.registry
     })
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
-client.login("NDA5Nzk2MzA1ODY3NTA1NjY3.DVoosQ.quY6eHNteS6On-FeiGMX2FaQBec");
+client.login("NDA5Nzk2MzA1ODY3NTA1NjY3.DVoqBw.JNAtAVLZv7cTACCvCbC5TDo4OG0");
