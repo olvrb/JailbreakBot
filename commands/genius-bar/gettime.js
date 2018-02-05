@@ -15,10 +15,10 @@ module.exports = class ReplyCommand extends Command {
     async run(message) {
         sql.get(`SELECT * FROM available WHERE userId ="${message.author.id}"`).then(row => {
             message.channel.send(`${row.fromtime} to ${row.totime}`);
-            message.delete(1000);
+            //message.delete(1000);
         }).catch(() => {
             message.channel.send("You have not setup a time, set one up via the command 'settime'");
-            message.delete(1000);
+            //message.delete(1000);
         });
     }
 };

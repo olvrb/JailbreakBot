@@ -50,6 +50,6 @@ module.exports = class ReplyCommand extends Command {
             });
         });
         message.reply(`Done! Sat your available time to ${fromtime} to ${totime}`);
-        message.delete(1000);
+        //message.delete(1000);
 	}
 };
