@@ -7,6 +7,7 @@ module.exports = class ReplyCommand extends Command {
             group: 'meta',
             memberName: 'issue',
             description: 'files an issue',
+            aliases: ['feedback'],
             examples: ['issue "!give myrole" crashes bot'],
             args: [
                 {

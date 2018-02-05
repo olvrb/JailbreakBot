@@ -8,7 +8,7 @@ this.embed = function () {
         .setDescription(desc);
 }
 const client = new CommandoClient({
-    commandPrefix: '?',
+    commandPrefix: '&',
     owner: '267407075905110016',
     disableEveryone: true
 });
@@ -30,4 +30,4 @@ client.registry
     })
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
-client.login("NDA5Nzk2MzA1ODY3NTA1NjY3.DVkcdw.9QlU0zURtOm0ixzEF7eyuyqLBsI");
+client.login("MzU4Mjk1ODQwNDIwNTI4MTI4.DVoqAw.WfLm48eKYUS19URJo0Tl91pCLm4");
