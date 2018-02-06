@@ -17,6 +17,9 @@ client.on("ready", () => {
     console.log(`Started with ${client.users.size} users, in ${client.guilds.size} guilds and with ${client.channels.size} channels.`);
     client.user.setPresence({ game: { name: 'with the devs', type: 0 } });
 });
+
+//client.on("");
+
 client.registry
     .registerDefaultTypes()
     .registerGroups([

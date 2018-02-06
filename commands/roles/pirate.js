@@ -29,10 +29,11 @@ module.exports = class ReplyCommand extends Command {
     }
     async run(message, { member, reason }) {
         message.delete();
-        //if (member.roles.exists("name", "Geniuses™")) return message.reply("You can't give a genius the pirate role!");
+        if (member.roles.exists("name", "Geniuses™") || member.roles.exists("name", "Moderators")) return message.reply("You can't give a genius or moderator the pirate role!");
         const preCheck = await db.fetchObject(message.guild.id + member.user.id + "_pirate");
         const pirateReports = message.guild.channels.find("name", "pirate-reports"); //get the channel so send piratemessage to
         const pirateRole = message.guild.roles.find("name", "Pirate"); //pirate role, obv
+        if (reason && preCheck.text.length == 18) return message.reply("That person is already a pirate!"); 
         if (!reason){ //remove pirate role and message if there's no reason
             member.roles.remove(member.roles.find("name", "Pirate"));                               //start by removing the role
             const data = await db.fetchObject(message.guild.id + member.user.id + "_pirate");       //get data from database 
@@ -54,7 +55,7 @@ module.exports = class ReplyCommand extends Command {
             .setDescription(`${member.user.username} is a pirate.`)
             .addField("Reason", reason)
             .setColor("RANDOM")
-            .setFooter(`Done by ${message.author.username}#${message.author.tag}`, message.author.displayAvatarURL())
+            .setFooter(`Done by ${message.author.tag}`, message.author.displayAvatarURL())
         const m = await pirateReports.send(embed);
         db.updateText(message.guild.id + member.user.id + "_pirate", m.id); //add message id to database to delete the message later
     }
