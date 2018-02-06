@@ -2,7 +2,7 @@ const { CommandoClient } = require('discord.js-commando');
 const path = require('path');
 const config = require("./config.json");
 const client = new CommandoClient({
-    commandPrefix: '?',
+    commandPrefix: '&',
     owner: '267407075905110016',
     disableEveryone: true,
     unknownCommandResponse: false
@@ -18,7 +18,8 @@ client.registry
     .registerDefaultTypes()
     .registerGroups([
         ['roles', 'Role Assignment'],
-        ['meta', 'Command about the bot itself']
+        ['meta', 'Command about the bot itself'],
+        ['genius-bar', 'Commands for genius-bar']
     ])
     .registerDefaultGroups()
     .registerDefaultCommands( {
