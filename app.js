@@ -15,7 +15,6 @@ const client = new CommandoClient({
 });
 client.on("ready", () => {
     console.log(`Started with ${client.users.size} users, in ${client.guilds.size} guilds and with ${client.channels.size} channels.`);
-    client.user.setPresence({ game: { name: 'with the devs', type: 0 } });
 });
 
 //client.on("");
@@ -24,8 +23,7 @@ client.registry
     .registerDefaultTypes()
     .registerGroups([
         ['roles', 'Role Assignment'],
-        ['meta', 'Command about the bot itself'],
-        ['genius-bar', 'Commands for genius-bar']
+        ['meta', 'Command about the bot itself']
     ])
     .registerDefaultGroups()
     .registerDefaultCommands( {
