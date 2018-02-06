@@ -29,7 +29,7 @@ module.exports = class ReplyCommand extends Command {
     }
     async run(message, { member, reason }) {
         message.delete();
-        if (member.roles.exists("name", "Geniuses™") || member.roles.exists("name", "Moderators")) return message.reply("You can't give a genius the pirate role!");
+        if (member.roles.exists("name", "Geniuses™") || member.roles.exists("name", "Moderators")) return message.reply("You can't give a genius or moderator the pirate role!");
         const preCheck = await db.fetchObject(message.guild.id + member.user.id + "_pirate");
         const pirateReports = message.guild.channels.find("name", "pirate-reports"); //get the channel so send piratemessage to
         const pirateRole = message.guild.roles.find("name", "Pirate"); //pirate role, obv
