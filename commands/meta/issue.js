@@ -3,16 +3,15 @@ const { MessageEmbed } = require("discord.js");
 module.exports = class ReplyCommand extends Command {
     constructor(client) {
         super(client, {
-            name: 'issue',
+            name: 'feedback',
             group: 'meta',
-            memberName: 'issue',
-            description: 'files an issue',
-            aliases: ['feedback'],
-            examples: ['issue "!give myrole" crashes bot'],
+            memberName: 'feedback',
+            description: 'Let the staff know of an issue.',
+            examples: ['feedback "!give myrole" crashes bot'],
             args: [
                 {
                     key: 'text',
-                    prompt: "What's the problem you are facing?",
+                    prompt: "What problem are you facing?",
                     type: 'string'
                 }
             ]
@@ -21,12 +20,12 @@ module.exports = class ReplyCommand extends Command {
 
     async run(message, { text }) {
         var issuechannel = this.client.channels.get("409796293116821515");
-        var report = message.author.username + " reported an issue";
+        var report = message.author.tag + " reported an issue";
         var reportembed = new MessageEmbed()
             .setTimestamp()
-            .setAuthor(message.author.username, message.author.displayAvatarURL())
-            .setTitle(message.author.username + "#" + message.author.discriminator + " has reported an issue")
-            .setDescription(text);
+            .setAuthor(this.client.user.username, this.client.user.displayAvatarURL())
+            .setTitle("Someone reported an issue!")
+            .addField("Description", text)
         issuechannel.send(reportembed);
     }
 };
