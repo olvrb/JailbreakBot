@@ -8,6 +8,10 @@ module.exports = class ReplyCommand extends Command {
             memberName: 'feedback',
             description: 'Let the staff know of an issue.',
             examples: ['feedback "!give myrole" crashes bot'],
+            throttling: {
+                usages: 1,
+                duration: 86400
+            },
             args: [
                 {
                     key: 'text',
