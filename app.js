@@ -1,5 +1,6 @@
 const { CommandoClient } = require('discord.js-commando');
 const path = require('path');
+const config = require("./config.json");
 this.embed = function () {
     var reportembed = new MessageEmbed()
         .setTimestamp()
@@ -23,7 +24,8 @@ client.registry
     .registerDefaultTypes()
     .registerGroups([
         ['roles', 'Role Assignment'],
-        ['meta', 'Command about the bot itself']
+        ['meta', 'Command about the bot itself'],
+        ['genius-bar', 'Commands for genius-bar']
     ])
     .registerDefaultGroups()
     .registerDefaultCommands( {
@@ -32,4 +34,5 @@ client.registry
         eval: false
     })
     .registerCommandsIn(path.join(__dirname, 'commands'));
-client.login("MzU4Mjk1ODQwNDIwNTI4MTI4.DVoqAw.WfLm48eKYUS19URJo0Tl91pCLm4");
+
+client.login(config.token);

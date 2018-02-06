@@ -52,7 +52,7 @@ module.exports = class ReplyCommand extends Command {
             .setTimestamp()
             .setAuthor(this.client.user.username, this.client.user.displayAvatarURL())                                  //just make the embed no need to comment smh
             .setTitle("Pirate")
-            .setDescription(`${member.user.username} is a pirate.`)
+            .setDescription(`${member.user.username} (${member.user.id}) is a pirate.`)
             .addField("Reason", reason)
             .setColor("RANDOM")
             .setFooter(`Done by ${message.author.tag}`, message.author.displayAvatarURL())

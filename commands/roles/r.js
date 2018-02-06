@@ -1,9 +1,5 @@
-const {
-    Command
-} = require("discord.js-commando");
-const {
-    MessageEmbed
-} = require("discord.js");
+const { Command } = require("discord.js-commando");
+const { MessageEmbed } = require("discord.js");
 const db = require("quick.db");
 module.exports = class ReplyCommand extends Command {
     constructor(client) {
@@ -14,11 +10,13 @@ module.exports = class ReplyCommand extends Command {
             memberName: 'r',
             description: 'Get or remove a role from the available list.',
             examples: ['r LiberiOS'],
-            args: [{
-                key: "role",
-                prompt: "Please specify a role.",
-                type: "string"
-            }]
+            args: [
+                {
+                    key: "role",
+                    prompt: "Please specify a role.",
+                    type: "string"
+                }
+            ]
         });
     }
     hasPermission(message) {
