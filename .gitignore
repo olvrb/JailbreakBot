@@ -59,3 +59,6 @@ typings/
 
 # database files
 *.sqlite
+
+# config files
+config.json
