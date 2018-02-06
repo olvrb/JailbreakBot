@@ -9,7 +9,7 @@ this.embed = function () {
         .setDescription(desc);
 }
 const client = new CommandoClient({
-    commandPrefix: '?',
+    commandPrefix: '!',
     owner: '267407075905110016',
     disableEveryone: true,
     unknownCommandResponse: false
