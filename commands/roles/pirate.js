@@ -33,6 +33,7 @@ module.exports = class ReplyCommand extends Command {
         const preCheck = await db.fetchObject(message.guild.id + member.user.id + "_pirate");
         const pirateReports = message.guild.channels.find("name", "pirate-reports"); //get the channel so send piratemessage to
         const pirateRole = message.guild.roles.find("name", "Pirate"); //pirate role, obv
+        if (reason && preCheck.text.length == 18) return message.reply("That person is already a pirate!"); 
         if (!reason){ //remove pirate role and message if there's no reason
             member.roles.remove(member.roles.find("name", "Pirate"));                               //start by removing the role
             const data = await db.fetchObject(message.guild.id + member.user.id + "_pirate");       //get data from database 
