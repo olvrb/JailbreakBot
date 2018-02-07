@@ -9,6 +9,7 @@ module.exports = class ReplyCommand extends Command {
             memberName: 'pirate',
             description: 'Give or remove pirate role.',
             examples: ['pirate @oliver#9880 cydown'],
+            guildOnly: true,
             args: [
                 {
                     key: "member",
