@@ -11,7 +11,6 @@ this.embed = function () {
 const client = new CommandoClient({
     commandPrefix: '!',
     owner: '267407075905110016',
-    disableEveryone: true,
     unknownCommandResponse: false
 });
 client.on("ready", () => {
