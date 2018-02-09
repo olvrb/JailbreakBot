@@ -6,7 +6,7 @@ module.exports = class SayCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'announce',
-            group: 'bigbois',
+            group: 'meta',
             memberName: 'announce',
             description: 'Announce firmware updates.Ex: !announce iOS 11.3 db 2 ',
             examples: ['!announce 11.3 db 2'],
