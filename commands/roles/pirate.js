@@ -55,7 +55,7 @@ module.exports = class ReplyCommand extends Command {
             .setTitle("Pirate")
             .setDescription(`${member.user.username} (${member.user} : ${member.user.id}) is a pirate.`)
             .addField("Reason", reason)
-            .setColor("RANDOM")
+            .setColor("0x36393E")
             .setFooter(`Done by ${message.author.tag}`, message.author.displayAvatarURL())
         const m = await pirateReports.send(embed);
         member.user.send(`Hi! You got the pirate role for following reason: ${reason}\nThis means you can't send message in the following channels: \n\n` + 
