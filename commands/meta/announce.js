@@ -56,8 +56,8 @@ module.exports = class SayCommand extends Command {
                 const role = msg.guild.roles.find("name", platform);
                 role.setMentionable(true);
                 const channel = msg.guild.channels.find("name", "announcements");
-                channel.send(`${role} ${ver} ${stringy} ${betaVER} has been released`);
-                role.setMentionable(false);
+                setTimeout(() => channel.send(`${role} ${ver} ${stringy} ${betaVER} has been released`), 1e4)
+                setTimeout(() => role.setMentionable(false), 1e4);
             } else {
                 console.log('Invalid Beta ');
                 msg.reply(`Invalid Beta`);
