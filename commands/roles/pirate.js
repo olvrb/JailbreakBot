@@ -31,7 +31,7 @@ module.exports = class ReplyCommand extends Command {
     async run(message, { member, reason }) {
         message.delete();
         const pirateCases = await db.fetchObject(message.guild.id + member.user.id + "_pirate_cases");
-        if (pirateCases.value == 3) {
+        if (pirateCases.value > 3) {
             member.ban({ reason: "Exceeded 3 piracy cases." });
             db.updateValue(message.guild.id + member.user.id + "_pirate_cases", -3);
             message.reply("Member banned.");
