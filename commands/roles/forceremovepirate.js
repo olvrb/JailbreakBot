@@ -4,11 +4,11 @@ const db = require("quick.db");
 module.exports = class ReplyCommand extends Command {
     constructor(client) {
         super(client, {
-            name: 'pirate',
+            name: 'forceremovepirate',
             group: 'roles',
-            memberName: 'pirate',
+            memberName: 'forceremovepirate',
             description: 'Give or remove pirate role.',
-            examples: ['pirate @oliver#9880 cydown'],
+            examples: ['forceremovepirate @oliver#9880'],
             guildOnly: true,
             args: [
                 {
