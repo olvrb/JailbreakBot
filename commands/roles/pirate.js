@@ -29,15 +29,7 @@ module.exports = class ReplyCommand extends Command {
         return (message.member.roles.exists("name", "Geniuses™") || message.member.roles.exists("name", "Moderators") || message.member.roles.exists("name", "Electra Geniuses™"));
     }
     async run(message, { member, reason }) {
-        message.delete();
-        const pirateCases = await db.fetchObject(message.guild.id + member.user.id + "_pirate_cases");
-        console.log(`${pirateCases.value}\n${typeof pirateCases.value}`);
-        if (pirateCases.value >= 3) {
-            member.ban({ reason: "Exceeded 3 piracy cases." });
-            db.updateValue(message.guild.id + member.user.id + "_pirate_cases", -3);
-            message.reply("Member banned.");
-            return;
-        }
+        message.delete();   
         if (member.roles.exists("name", "Geniuses™") || member.roles.exists("name", "Moderators")) return message.reply("You can't give a genius or moderator the pirate role!");
         const preCheck = await db.fetchObject(message.guild.id + member.user.id + "_pirate");
         const pirateReports = message.guild.channels.find("name", "pirate-reports"); //get the channel so send piratemessage to
@@ -58,6 +50,15 @@ module.exports = class ReplyCommand extends Command {
             roles: roleArray
         });
         db.updateValue(message.guild.id + member.user.id + "_pirate_cases", 1);
+        const pirateCases = await db.fetchObject(message.guild.id + member.user.id + "_pirate_cases");
+        setTimeout(() => {
+            if (pirateCases.value >= 3) {
+                member.ban({ reason: "Exceeded 3 piracy cases." });
+                db.updateValue(message.guild.id + member.user.id + "_pirate_cases", -3);
+                message.reply("Member banned.");
+                return;
+            }
+        }, 2e3);
         setTimeout(async () => {
             const newPirateCase = await db.fetchObject(message.guild.id + member.user.id + "_pirate_cases");
             console.log(newPirateCase);
