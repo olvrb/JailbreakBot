@@ -57,26 +57,17 @@ module.exports = class ReplyCommand extends Command {
             roles: roleArray
         });
         db.updateValue(message.guild.id + member.user.id + "_pirate_cases", 1);
+        const newPirateCase = db.fetchObject(message.guild.id + member.user.id + "_pirate_cases");
         const embed = new MessageEmbed()
             .setTimestamp()
             .setAuthor(this.client.user.username, this.client.user.displayAvatarURL())                                  //just make the embed no need to comment smh
             .setTitle("Pirate")
             .setDescription(`${member.user.username} (${member.user} : ${member.user.id}) is a pirate.`)
             .addField("Reason", reason)
-            .addField("Amount of times caught", pirateCases.value)
+            .addField("Amount of times caught", newPirateCase.value)
             .setColor("0x36393E")
             .setFooter(`Done by ${message.author.tag}`, message.author.displayAvatarURL())
         const m = await pirateReports.send(embed);
-        /*
-
-        const restrictedChannels = [];
-        await message.guild.channels.forEach(channel => {
-            channel.permissionOverwrites.forEach(permOverwrites => {        // This was supposed to be something to iterate through all perms of Pirate role, but discord.js was so messy. 
-
-            });
-        });
-
-        */
         member.user.send(`Hi! You got the pirate role for following reason: ${reason}\nThis means you can't send message in the following channels: \n\n` + 
         `-electra\n-g0blin\n-meridian\n-overcl0ck\n-liberios-libertv\n-genius-bar\n-genius-bar-2\n\n` +
         `To get this role removed, talk to a genius.`);
