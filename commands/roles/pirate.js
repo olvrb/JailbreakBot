@@ -26,10 +26,17 @@ module.exports = class ReplyCommand extends Command {
         });
     }
     hasPermission(message) {
-        return (message.member.roles.exists("name", "Geniuses™") || message.member.roles.exists("name", "Moderators"));
+        return (message.member.roles.exists("name", "Geniuses™") || message.member.roles.exists("name", "Moderators") || message.member.roles.exists("name", "Electra Geniuses™"));
     }
     async run(message, { member, reason }) {
         message.delete();
+        const pirateCases = db.fetchObject(message.guild.id + member.user.id + "_pirate_cases");
+        if (pirateCases.value === 3) {
+            member.ban({ reason: "Exceeded 3 piracy cases." });
+            db.updateValue(message.guild.id + member.user.id + "_pirate_cases", -3);
+            message.reply("Member banned.");
+            return;
+        }
         if (member.roles.exists("name", "Geniuses™") || member.roles.exists("name", "Moderators")) return message.reply("You can't give a genius or moderator the pirate role!");
         const preCheck = await db.fetchObject(message.guild.id + member.user.id + "_pirate");
         const pirateReports = message.guild.channels.find("name", "pirate-reports"); //get the channel so send piratemessage to
@@ -49,6 +56,7 @@ module.exports = class ReplyCommand extends Command {
         member.edit({
             roles: roleArray
         });
+        db.updateValue(message.guild.id + member.user.id + "_pirate_cases", 1);
         const embed = new MessageEmbed()
             .setTimestamp()
             .setAuthor(this.client.user.username, this.client.user.displayAvatarURL())                                  //just make the embed no need to comment smh
@@ -58,6 +66,16 @@ module.exports = class ReplyCommand extends Command {
             .setColor("0x36393E")
             .setFooter(`Done by ${message.author.tag}`, message.author.displayAvatarURL())
         const m = await pirateReports.send(embed);
+        /*
+
+        const restrictedChannels = [];
+        await message.guild.channels.forEach(channel => {
+            channel.permissionOverwrites.forEach(permOverwrites => {        // This was supposed to be something to iterate through all perms of Pirate role, but discord.js was so messy. 
+
+            });
+        });
+
+        */
         member.user.send(`Hi! You got the pirate role for following reason: ${reason}\nThis means you can't send message in the following channels: \n\n` + 
         `-electra\n-g0blin\n-meridian\n-overcl0ck\n-liberios-libertv\n-genius-bar\n-genius-bar-2\n\n` +
         `To get this role removed, talk to a genius.`);

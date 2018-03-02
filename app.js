@@ -1,13 +1,9 @@
-const { CommandoClient } = require('discord.js-commando');
+const {
+    CommandoClient
+} = require('discord.js-commando');
 const path = require('path');
 const config = require("./config.json");
-this.embed = function () {
-    var reportembed = new MessageEmbed()
-        .setTimestamp()
-        .setAuthor(author.username, author.displayAvatarURL())
-        .setTitle(title)
-        .setDescription(desc);
-}
+const db = require("quick.db");
 const client = new CommandoClient({
     commandPrefix: '?',
     owner: '267407075905110016',
@@ -17,7 +13,16 @@ client.on("ready", () => {
     console.log(`Started with ${client.users.size} users, in ${client.guilds.size} guilds and with ${client.channels.size} channels.`);
 });
 
-//client.on("");
+client.on("guildMemberAdd", member => { //es-lint disable unused-variable
+    const checkMember = db.fetchObject(member.guild.id + member.user.id + "_pirate");
+    if (checkMember.text.length !== 18) return;
+    const pirateRole = member.guild.roles.find("name", "Pirate");
+    const roleArray = member.roles.array(); // discord.js has a weird way of handling role adding on master
+    roleArray.push(pirateRole); // so we just do this
+    member.edit({
+        roles: roleArray
+    });
+});
 
 client.registry
     .registerDefaultTypes()
@@ -27,7 +32,7 @@ client.registry
         ['genius-bar', 'Commands for genius-bar']
     ])
     .registerDefaultGroups()
-    .registerDefaultCommands( {
+    .registerDefaultCommands({
         ping: false,
         help: false,
         eval: false
