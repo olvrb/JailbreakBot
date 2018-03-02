@@ -57,7 +57,7 @@ module.exports = class ReplyCommand extends Command {
             roles: roleArray
         });
         db.updateValue(message.guild.id + member.user.id + "_pirate_cases", 1);
-        setTimeout(() => {
+        setTimeout(async => {
             const newPirateCase = db.fetchObject(message.guild.id + member.user.id + "_pirate_cases");
             const embed = new MessageEmbed()
                 .setTimestamp()
