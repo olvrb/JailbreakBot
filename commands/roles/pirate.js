@@ -57,20 +57,22 @@ module.exports = class ReplyCommand extends Command {
             roles: roleArray
         });
         db.updateValue(message.guild.id + member.user.id + "_pirate_cases", 1);
-        const newPirateCase = db.fetchObject(message.guild.id + member.user.id + "_pirate_cases");
-        const embed = new MessageEmbed()
-            .setTimestamp()
-            .setAuthor(this.client.user.username, this.client.user.displayAvatarURL())                                  //just make the embed no need to comment smh
-            .setTitle("Pirate")
-            .setDescription(`${member.user.username} (${member.user} : ${member.user.id}) is a pirate.`)
-            .addField("Reason", reason)
-            .addField("Amount of times caught", newPirateCase.value)
-            .setColor("0x36393E")
-            .setFooter(`Done by ${message.author.tag}`, message.author.displayAvatarURL())
-        const m = await pirateReports.send(embed);
-        member.user.send(`Hi! You got the pirate role for following reason: ${reason}\nThis means you can't send message in the following channels: \n\n` + 
-        `-electra\n-g0blin\n-meridian\n-overcl0ck\n-liberios-libertv\n-genius-bar\n-genius-bar-2\n\n` +
-        `To get this role removed, talk to a genius.`);
-        db.updateText(message.guild.id + member.user.id + "_pirate", m.id); //add message id to database to delete the message later
+        setTimeout(() => {
+            const newPirateCase = db.fetchObject(message.guild.id + member.user.id + "_pirate_cases");
+            const embed = new MessageEmbed()
+                .setTimestamp()
+                .setAuthor(this.client.user.username, this.client.user.displayAvatarURL())                                  //just make the embed no need to comment smh
+                .setTitle("Pirate")
+                .setDescription(`${member.user.username} (${member.user} : ${member.user.id}) is a pirate.`)
+                .addField("Reason", reason)
+                .addField("Amount of times caught", newPirateCase.value)
+                .setColor("0x36393E")
+                .setFooter(`Done by ${message.author.tag}`, message.author.displayAvatarURL())
+            const m = await pirateReports.send(embed);
+            member.user.send(`Hi! You got the pirate role for following reason: ${reason}\nThis means you can't send message in the following channels: \n\n` + 
+            `-electra\n-g0blin\n-meridian\n-overcl0ck\n-liberios-libertv\n-genius-bar\n-genius-bar-2\n\n` +
+            `To get this role removed, talk to a genius.`);
+            db.updateText(message.guild.id + member.user.id + "_pirate", m.id); //add message id to database to delete the message later
+        }, 2e3);
     }
 };
