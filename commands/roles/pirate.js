@@ -63,6 +63,7 @@ module.exports = class ReplyCommand extends Command {
             .setTitle("Pirate")
             .setDescription(`${member.user.username} (${member.user} : ${member.user.id}) is a pirate.`)
             .addField("Reason", reason)
+            .addField("Amount of times caught", pirateCases.value)
             .setColor("0x36393E")
             .setFooter(`Done by ${message.author.tag}`, message.author.displayAvatarURL())
         const m = await pirateReports.send(embed);
