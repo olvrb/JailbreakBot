@@ -58,7 +58,8 @@ module.exports = class ReplyCommand extends Command {
         });
         db.updateValue(message.guild.id + member.user.id + "_pirate_cases", 1);
         setTimeout(async () => {
-            const newPirateCase = db.fetchObject(message.guild.id + member.user.id + "_pirate_cases");
+            const newPirateCase = await db.fetchObject(message.guild.id + member.user.id + "_pirate_cases");
+            console.log(newPirateCase);
             const embed = new MessageEmbed()
                 .setTimestamp()
                 .setAuthor(this.client.user.username, this.client.user.displayAvatarURL())                                  //just make the embed no need to comment smh
