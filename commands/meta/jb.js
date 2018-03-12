@@ -29,10 +29,15 @@ module.exports = class SayCommand extends Command {
 		msg.delete(); 
 		if (msg.channel !== msg.guild.channels.find("name", "staff-botspam")) return;
 		const role = msg.guild.roles.find("name", jb);
-		role.setMentionable(true);
-        const channel = msg.guild.channels.find("name", "announcements"); 
-        console.log(channel);
-		channel.send(`${role}  ${tweet} `);
-		role.setMentionable(false);
+        role.setMentionable(true);
+        setTimeout(() => {
+            const channel = msg.guild.channels.find("name", "announcements"); 
+            console.log(channel);
+            channel.send(`${role}  ${tweet} `);
+            setTimeout(() => {
+                role.setMentionable(false);
+            }, 1e4);
+        }, 1e4);
+
     }
 };
