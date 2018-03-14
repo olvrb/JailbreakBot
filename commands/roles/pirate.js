@@ -9,6 +9,7 @@ module.exports = class ReplyCommand extends Command {
             memberName: 'pirate',
             description: 'Give or remove pirate role.',
             examples: ['pirate @oliver#9880 cydown'],
+            guildOnly: true,
             args: [
                 {
                     key: "member",
@@ -25,10 +26,10 @@ module.exports = class ReplyCommand extends Command {
         });
     }
     hasPermission(message) {
-        return (message.member.roles.exists("name", "Geniuses™") || message.member.roles.exists("name", "Moderators"));
+        return (message.member.roles.exists("name", "Geniuses™") || message.member.roles.exists("name", "Moderators") || message.member.roles.exists("name", "Electra Geniuses™"));
     }
     async run(message, { member, reason }) {
-        message.delete();
+        message.delete();   
         if (member.roles.exists("name", "Geniuses™") || member.roles.exists("name", "Moderators")) return message.reply("You can't give a genius or moderator the pirate role!");
         const preCheck = await db.fetchObject(message.guild.id + member.user.id + "_pirate");
         const pirateReports = message.guild.channels.find("name", "pirate-reports"); //get the channel so send piratemessage to
@@ -48,15 +49,32 @@ module.exports = class ReplyCommand extends Command {
         member.edit({
             roles: roleArray
         });
-        const embed = new MessageEmbed()
-            .setTimestamp()
-            .setAuthor(this.client.user.username, this.client.user.displayAvatarURL())                                  //just make the embed no need to comment smh
-            .setTitle("Pirate")
-            .setDescription(`${member.user.username} (${member.user.id}) is a pirate.`)
-            .addField("Reason", reason)
-            .setColor("RANDOM")
-            .setFooter(`Done by ${message.author.tag}`, message.author.displayAvatarURL())
-        const m = await pirateReports.send(embed);
-        db.updateText(message.guild.id + member.user.id + "_pirate", m.id); //add message id to database to delete the message later
+        db.updateValue(message.guild.id + member.user.id + "_pirate_cases", 1);
+        const pirateCases = await db.fetchObject(message.guild.id + member.user.id + "_pirate_cases").then(async (e) => {
+            if (e.value >= 3) {
+                member.ban({ reason: "Exceeded 3 piracy cases." });
+                db.updateValue(message.guild.id + member.user.id + "_pirate_cases", -3);
+                message.reply("Member banned.");
+            } else {
+                const newPirateCase = await db.fetchObject(message.guild.id + member.user.id + "_pirate_cases");
+                console.log(newPirateCase);
+                const embed = new MessageEmbed()
+                    .setTimestamp()
+                    .setAuthor(this.client.user.username, this.client.user.displayAvatarURL())                                  //just make the embed no need to comment smh
+                    .setTitle("Pirate")
+                    .setDescription(`${member.user.username} (${member.user} : ${member.user.id}) is a pirate.`)
+                    .addField("Reason", reason)
+                    .addField("Amount of times caught", newPirateCase.value)
+                    .setColor("0x36393E")
+                    .setFooter(`Done by ${message.author.tag}`, message.author.displayAvatarURL())
+                const m = await pirateReports.send(embed);
+                member.user.send(`Hi! You got the pirate role for following reason: ${reason}\nThis means you can't send message in the Support and Current Jailbreak/Tools category.` +
+                `To get this role removed, talk to a genius.`);
+                db.updateText(message.guild.id + member.user.id + "_pirate", m.id); //add message id to database to delete the message later
+            }
+        });
+        setTimeout(async () => {
+
+        }, 2e3);
     }
 };
