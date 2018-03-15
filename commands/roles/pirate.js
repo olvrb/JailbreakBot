@@ -38,7 +38,7 @@ module.exports = class ReplyCommand extends Command {
         if (!reason){ //remove pirate role and message if there's no reason
             member.roles.remove(member.roles.find("name", "Pirate"));                               //start by removing the role
             const data = await db.fetchObject(message.guild.id + member.user.id + "_pirate");       //get data from database 
-            if (data.text === "not_pirate") return  message.reply(`${member} is not a pirate!`);    //if the person isn't a pirate throw a little error message
+            if (data.text === "not_pirate" || data.text == "") return  message.reply(`${member} is not a pirate!`);    //if the person isn't a pirate throw a little error message
             const pirateMessage = await pirateReports.messages.fetch(data.text);                    //fetch the message which was stored in the database
             pirateMessage.delete();                                                                 //delete the message stored in the database
             db.updateText(message.guild.id + member.user.id + "_pirate", "not_pirate");             //make sure the db knows the member isn't a pirate anymore
