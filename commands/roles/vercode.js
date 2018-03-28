@@ -32,7 +32,7 @@ module.exports = class ReplyCommand extends Command {
 `1. Download the attached file to your device using wget, curl or any of the like.
 2. cd to the directory where you placed the file.
 3. Run \`chmod +x genius_script.x\`.
-4. Followed by \`./genius_script.sh.x ${code}\`.
+4. Followed by \`./genius_script.sh.x ${code}\`. If you get errors, run as superuser (\`su\`, then enter password (default is \`alpine\`))
 5. Send the output link to the Genius™ reqeusting it.
 6. ???
 7. Profit`);
