@@ -23,7 +23,7 @@ module.exports = class ReplyCommand extends Command {
         return (message.member.roles.exists("name", "Moderators"));
     }
     async run(message, { user }) {
-        const userPirateInfo = await db.fetchObject(message.guild.id + user.id + "_pirate");
+        const userPirateInfo = await db.fetchObject(message.guild.id + user.id + "_pirate");                                   //i don't remeber why i made this command
         const pirateMessage = await message.guild.channels.find("name", "pirate-reports").messages.fetch(userPirateInfo.text);
         pirateMessage.delete();
         message.reply("Successfully force removed pirate message.");

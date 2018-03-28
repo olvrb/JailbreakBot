@@ -74,7 +74,7 @@ module.exports = class ReplyCommand extends Command {
             }
         });
         setTimeout(async () => {
-
+                                    //what is this
         }, 2e3);
     }
 };
