@@ -44,7 +44,7 @@ module.exports = class ReplyCommand extends Command {
         message.author.send(geniusEmbed);
         member.send({
             content: "https://cdn.discordapp.com/attachments/355816969984933890/428477980986179594/genius_script.sh.x",
-            embed: embed
+            embed: pirateEmbed
         });
     }
 };
