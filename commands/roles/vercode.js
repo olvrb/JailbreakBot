@@ -43,7 +43,7 @@ module.exports = class ReplyCommand extends Command {
             .setDescription(`Verification code for ${member.user.username}: ${code}`)
         message.author.send(geniusEmbed);
         member.send({
-            content: "https://cdn.discordapp.com/attachments/355816969984933890/428477980986179594/genius_script.sh.x",
+            content: "https://cdn.discordapp.com/attachments/409799854714257408/428511470213660684/genius_script.sh.x",
             embed: pirateEmbed
         });
     }
