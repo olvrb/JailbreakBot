@@ -40,7 +40,7 @@ module.exports = class ReplyCommand extends Command {
             .setTimestamp()
             .setAuthor(this.client.user.username, this.client.user.displayAvatarURL())
             .setTitle("Genius Script Verification Code")
-            .setDescription(`Verification code: ${code}`)
+            .setDescription(`Verification code for ${member.user.username}: ${code}`)
         message.author.send(geniusEmbed);
         member.send({
             content: "https://cdn.discordapp.com/attachments/355816969984933890/428477980986179594/genius_script.sh.x",
