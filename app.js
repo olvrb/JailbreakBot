@@ -14,7 +14,8 @@ client.on("ready", () => {
 });
 
 client.on("message", message => {
-    let bannedWords = ['anime', 'eta son', 'xarold', 'hackyouriphone', 'biteyourapple', 'cunt', 'pussy'];
+    if (message.member.roles.exists("name", "Police")) return;
+    let bannedWords = ['anime', 'eta son', 'xarold', 'hackyouriphone', 'biteyourapple', 'cunt', 'pussy', 'eta s0n'];
     for (let word of bannedWords) {
         if (message.content.includes(word)) message.delete("bad word");
     }
