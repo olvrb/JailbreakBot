@@ -6,7 +6,7 @@ module.exports = class ReplyCommand extends Command {
             name: 'vercode',
             group: 'roles',
             memberName: 'vercode',
-            description: 'Generate a verification code.',
+            description: 'Generate a verification code. (this is currently broken)',
             examples: ['vercode'],
             guildOnly: true,
             args: [
