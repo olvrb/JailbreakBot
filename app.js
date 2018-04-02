@@ -15,10 +15,11 @@ client.on("ready", () => {
 
 client.on("message", message => {
     if (message.member.roles.exists("name", "Police")) return;
+    /* this isn't needed anymore, april fools is over
     let bannedWords = ['anime', 'eta son', 'xarold', 'hackyouriphone', 'biteyourapple', 'cunt', 'pussy', 'eta s0n'];
     for (let word of bannedWords) {
         if (message.content.toLowerCase().includes(word)) message.delete("bad word");
-    }
+    }*/
 });
 
 client.on("guildMemberAdd", member => { //es-lint disable unused-variable
