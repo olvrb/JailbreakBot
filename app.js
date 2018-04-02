@@ -22,8 +22,8 @@ client.on("message", message => {
     }*/
 });
 
-client.on("guildMemberAdd", member => { //es-lint disable unused-variable
-    const checkMember = db.fetchObject(member.guild.id + member.user.id + "_pirate");
+client.on("guildMemberAdd", async member => { //es-lint disable unused-variable
+    const checkMember = await db.fetchObject(member.guild.id + member.user.id + "_pirate");
     if (!checkMember.text) return;
     if (checkMember.text.length !== 18) return;
     const pirateRole = member.guild.roles.find("name", "Pirate");
