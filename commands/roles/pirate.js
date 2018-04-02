@@ -79,12 +79,13 @@ module.exports = class ReplyCommand extends Command {
                 member.user.send(`Hi! You got the pirate role for following reason: ${reason}\nThis means you can't send message in the Support and Current Jailbreak/Tools category.` +
                 `To get this role removed, talk to a genius.`);
                 /* BLACKLIST BEGIN */
+                /*
                 let preEditArr = await db.fetchArray(message.guild.id + "_blacklisted");
                 if (includes(preEditArr, member.id)) return message.reply("That user or role is already blacklisted.");
                 else {
                     preEditArr.push(id);
                     db.setArray(message.guild.id + "_blacklisted", preEditArr);
-                }
+                }*/
                 /* BLACKLIST END */
                 db.updateText(message.guild.id + member.user.id + "_pirate", m.id); //add message id to database to delete the message later
             }
