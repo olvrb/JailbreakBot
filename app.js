@@ -5,7 +5,7 @@ const path = require('path');
 const config = require("./config.json");
 const db = require("quick.db");
 const client = new CommandoClient({
-    commandPrefix: '&',
+    commandPrefix: '?',
     owner: '267407075905110016',
     unknownCommandResponse: false
 });
