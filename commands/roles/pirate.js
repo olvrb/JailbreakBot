@@ -58,7 +58,7 @@ module.exports = class ReplyCommand extends Command {
             roles: roleArray
         });
         db.updateValue(message.guild.id + member.user.id + "_pirate_cases", 1);
-        const pirateCases = await db.fetchObject(message.guild.id + member.user.id + "_pirate_cases").then(async (e) => {
+        db.fetchObject(message.guild.id + member.user.id + "_pirate_cases").then(async (e) => {
             if (e.value >= 3) {
                 member.ban({ reason: "Exceeded 3 piracy cases." });
                 db.updateValue(message.guild.id + member.user.id + "_pirate_cases", -3);
@@ -77,7 +77,9 @@ module.exports = class ReplyCommand extends Command {
                     .setFooter(`Done by ${message.author.tag}`, message.author.displayAvatarURL())
                 const m = await pirateReports.send(embed);
                 member.user.send(`Hi! You got the pirate role for following reason: ${reason}\nThis means you can't send message in the Support and Current Jailbreak/Tools category.` +
-                `To get this role removed, talk to a genius.`);
+                `To get this role removed, talk to a genius.`, {
+                    files: ["https://cdn.discordapp.com/attachments/367025568685883392/430770611753713665/pirates.png"]
+                });
                 /* BLACKLIST BEGIN */
                 /*
                 let preEditArr = await db.fetchArray(message.guild.id + "_blacklisted");
