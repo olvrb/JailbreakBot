@@ -77,7 +77,7 @@ module.exports = class ReplyCommand extends Command {
                     .setFooter(`Done by ${message.author.tag}`, message.author.displayAvatarURL())
                 const m = await pirateReports.send(embed);
                 member.user.send(`Hi! You got the pirate role for following reason: ${reason}\nThis means you can't send message in the Support and Current Jailbreak/Tools category.` +
-                `To get this role removed, talk to a genius.`, {
+                `To get this role removed, talk to a genius. Make sure you show him/her all of your tweaks, sources, and installed apps.`, {
                     files: ["https://cdn.discordapp.com/attachments/367025568685883392/430770611753713665/pirates.png"]
                 });
                 /* BLACKLIST BEGIN */
