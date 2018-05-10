@@ -69,7 +69,7 @@ module.exports = class ReplyCommand extends Command {
                     .setFooter(`Done by ${message.author.tag}`, message.author.displayAvatarURL())
                 const m = await pirateReports.send(embed);
                 member.user.send(`Hi! You got the pirate role for following reason: ${reason}\nThis means you can't send message in the Support and Current Jailbreak/Tools category.` +
-                `To get this role removed, talk to a genius.`);
+                `To get this role removed, ping a genius in the #pirates channel.`);
                 db.updateText(message.guild.id + member.user.id + "_pirate", m.id); //add message id to database to delete the message later
             }
         });
