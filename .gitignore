@@ -1,3 +1,6 @@
+# Visual Studio crap
+.vs/
+
 # Logs
 logs
 *.log

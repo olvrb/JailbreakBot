@@ -80,15 +80,6 @@ module.exports = class ReplyCommand extends Command {
                 `To get this role removed, talk to a genius. Make sure you show him/her all of your tweaks, sources, and installed apps.`, {
                     files: ["https://cdn.discordapp.com/attachments/367025568685883392/430770611753713665/pirates.png"]
                 });
-                /* BLACKLIST BEGIN */
-                /*
-                let preEditArr = await db.fetchArray(message.guild.id + "_blacklisted");
-                if (includes(preEditArr, member.id)) return message.reply("That user or role is already blacklisted.");
-                else {
-                    preEditArr.push(id);
-                    db.setArray(message.guild.id + "_blacklisted", preEditArr);
-                }*/
-                /* BLACKLIST END */
                 db.updateText(message.guild.id + member.user.id + "_pirate", m.id); //add message id to database to delete the message later
             }
         });
