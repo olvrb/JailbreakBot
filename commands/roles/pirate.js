@@ -38,10 +38,18 @@ module.exports = class ReplyCommand extends Command {
         if (!reason){ //remove pirate role and message if there's no reason
             member.roles.remove(member.roles.find("name", "Pirate"));                               //start by removing the role
             const data = await db.fetchObject(message.guild.id + member.user.id + "_pirate");       //get data from database 
-            if (data.text === "not_pirate") return  message.reply(`${member} is not a pirate!`);    //if the person isn't a pirate throw a little error message
+            if (data.text === "not_pirate" || data.text == "") return  message.reply(`${member} is not a pirate!`);    //if the person isn't a pirate throw a little error message
             const pirateMessage = await pirateReports.messages.fetch(data.text);                    //fetch the message which was stored in the database
             pirateMessage.delete();                                                                 //delete the message stored in the database
             db.updateText(message.guild.id + member.user.id + "_pirate", "not_pirate");             //make sure the db knows the member isn't a pirate anymore
+            /*
+            let preEditArr = await db.fetchArray(message.guild.id + "_blacklisted");
+            if (!includes(preEditArr, id)) return message.reply("That user or role is not blacklisted.");
+            else {
+                preEditArr = preEditArr.filter(e => e != member.id);
+                message.reply(`Unblacklisted \`${id}\`.`);
+                db.setArray(message.guild.id + "_blacklisted", preEditArr);
+            }*/
             return message.reply(`removed role from ${member}.`);                                   //let the genius/mod/admin know that the role is gone
         }
         const roleArray = member.roles.array(); // discord.js has a weird way of handling role adding on master
@@ -69,12 +77,18 @@ module.exports = class ReplyCommand extends Command {
                     .setFooter(`Done by ${message.author.tag}`, message.author.displayAvatarURL())
                 const m = await pirateReports.send(embed);
                 member.user.send(`Hi! You got the pirate role for following reason: ${reason}\nThis means you can't send message in the Support and Current Jailbreak/Tools category.` +
-                `To get this role removed, ping a genius in the #pirates channel.`);
+                `To get this role removed, talk to a genius. Make sure you show him/her all of your tweaks, sources, and installed apps.`, {
+                    files: ["https://cdn.discordapp.com/attachments/367025568685883392/430770611753713665/pirates.png"]
+                });
                 db.updateText(message.guild.id + member.user.id + "_pirate", m.id); //add message id to database to delete the message later
             }
         });
-        setTimeout(async () => {
-
-        }, 2e3);
     }
 };
+
+function includes(arr, query) {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] == query) return true;        
+    }
+    return false;
+}
