@@ -50,4 +50,4 @@ client.registry
     })
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
-client.login(config.token);
+client.login("NzQ2ODczNDQzMzI4MTk2NjU4.X0GqGQ.BRP95vhVteLSshyBEkW6NHGkQO4");
